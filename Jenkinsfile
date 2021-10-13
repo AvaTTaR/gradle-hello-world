@@ -13,7 +13,7 @@ pipeline{
   }
         stage('build'){
           steps{
-           sh "${gradle}/bin/gradle build"
+           sh "gradle build"
           }
         }
     }
