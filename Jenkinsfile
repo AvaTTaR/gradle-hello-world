@@ -26,15 +26,15 @@ pipeline{
         steps{
             parallel(
                 "First test" : {
-                    sh "chmod +x test-data/int-test.sh"
+                    sh "chmod 777 test-data/int-test.sh"
                     sh "test-data/int-test.sh build/libs/oto-gradle-1.0.jar AvaTTaR 'Hello Avattar!'"
                 },
                 "Second test" : {
-                    sh "chmod +x test-data/int-test.sh"
+                    sh "chmod 777 test-data/int-test.sh"
                     sh "test-data/int-test.sh build/libs/oto-gradle-1.0.jar avattar 'Hello Avattar!'"
                 },
                 "third step" : {
-                    sh "chmod +x test-data/int-test.sh"
+                    sh "chmod 777 test-data/int-test.sh"
                     sh "test-data/int-test.sh build/libs/oto-gradle-1.0.jar aVATTAR 'Hello Avattar!'"
                 }
             )
