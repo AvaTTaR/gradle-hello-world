@@ -11,11 +11,33 @@ pipeline{
           checkout scm
       }
   }
-        stage('build'){
-          steps{
+    stage('build'){
+      steps{
            sh "gradle build"
           }
+    }
+    stage('Unit tests'){
+        steps{
+        sh 'gradle test'
         }
+    }
+    stage('‘func-test'){
+        steps{
+            parallel(
+                "First test" : {
+                    sh 'ls'
+                    sh 'pwd'
+                    sh "./test-data/int-test.sh build/libs/oto-gradle-1.0.jar AvaTTaR 'Hello Avattar!'"
+                },
+                "Second test" : {
+                    sh "./test-data/int-test.sh build/libs/oto-gradle-1.0.jar avattar 'Hello Avattar!'"
+                },
+                "third step" : {
+                    sh "./test-data/int-test.sh build/libs/oto-gradle-1.0.jar aVATTAR 'Hello Avattar!'"
+                }
+            )
+        }
+    }
     }
   post {
   success {
