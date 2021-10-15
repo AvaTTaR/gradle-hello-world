@@ -22,12 +22,11 @@ pipeline{
         sh 'gradle test'
         }
     }
-    stage('‘func-test'){
+    stage('func-test'){
         steps{
+            sh "chmod +x test-data/int-test.sh"
             parallel(
                 "First test" : {
-                    sh 'ls'
-                    sh 'pwd'
                     sh "test-data/int-test.sh build/libs/oto-gradle-1.0.jar AvaTTaR 'Hello Avattar!'"
                 },
                 "Second test" : {
