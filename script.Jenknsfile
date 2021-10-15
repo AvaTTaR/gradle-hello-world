@@ -1,0 +1,31 @@
+
+status = "ok"
+def gradleHome = tool 'gradle4'
+
+node ("slave1") {
+
+
+
+try{
+  stage('build') {
+    sh "${gradleHome}/bin/gradle build"
+  }
+    stage('chckout'){
+    checkout scm
+  }
+}
+catch (ex) {
+  status = "fail"
+  echo 'Error in stages'
+ }
+stage('post') {
+  echo "Build result is " + status
+  if ( status == 'ok') {
+   addBadge(icon: 'green.gif', text: 'OK')
+  }
+  if (currentBuild.result == 'fail') {
+   addBadge(icon: 'red.gif', text: 'FAIL')
+  } 
+
+}
+}
